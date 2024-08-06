@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+
+
+    {% block body %}
+
+<div style="background-color: gray; height:150px;" class="jumbotron text-center" >
+    <h2>YB Bloga Hoşgeldiniz</h2>
+    <br>
+    <p>Bu blogda geliştiriciler olarak yazılarıınızı paylaşabilir ve diğer yazılımcıların gelişmesine yardımcı olabilirsiniz</p>
+</div>
+
+    {% if request.user.is_authenticated %}
+            {{request.user.username}}, Giriş Yaptınız...
+
+     {% else %}
+            Giriş Yapılmamış
+
+     {% endif %}
+
+
+    {%endblock body%}
