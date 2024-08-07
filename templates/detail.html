@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body %}
+ <div class="row">
+                <div class="col-lg-8">
+
+
+    <hr>
+                           <!-- Post title-->
+                            <a href="{% url 'article:detail' article.id %}"><h3 class="mt-4">{{article.title}}</h3></a>
+                            <!-- Post meta content-->
+                            <p class="lead">
+                               by {{article.author.username}}
+                            </p>
+
+                                <hr>
+                        <p>{{article.created_date}} </p>
+    <hr>
+                    {% if article.article_image %}
+                    <a href="/articles/article/{{article.id}}"><img src="{{article.article_image.url}}"  class="img-fluid rounded"></a>
+                    {% endif %}
+                    <hr>
+                    <p> {{article.content|safe}}</p>
+                        <hr>
+
+
+
+
+
+
+        </div>
+
+<!-- makalelerin alt kısmına yorum ekleyebilmek için aşağıdaki fonksiyon yazılır -->
+     <hr>
+     <h4>Yorumlar</h4>
+     <hr>
+{% if comments %}
+{% for comment in comments %}
+<div class="media mb-4"><img class="d-flex mr-3 rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+</div>
+    <div class="media-body">
+        <h5 class="mt-0">{{comment.comment_author}}</h5>
+
+        {{comment.comment_date}} <br>
+        {{comment.comment_content}} <br>
+    </div>
+
+{% endfor %}
+
+{% else %}
+<div class="alert alert-danger">
+    Bu makaleye henüz yorum yapılmamıştır
+</div>
+
+{% endif  %}
+
+
+<div class="card my-2">
+    <h5 class="card-header">Yorum Ekle</h5>
+    <form method="post" action="{% url 'article:comment' article.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>İsim:</label>
+
+    <input name="comment_author" type="text" class="form-control" placeholder="İsminizi giriniz...">
+<hr>
+        </div>
+        <div class="form-group">
+            <label>Yorumunuz:</label>
+
+            <textarea name="comment_content" class="form-control" rows="3"placeholder="Yorumunuzu giriniz..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-danger">Ekle</button>
+    </form>
+
+</div>
+</div>
+{% endblock body %}

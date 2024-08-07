@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+<h2>Makale Güncelle</h2>
+    <hr>
+   <form method="post" enctype="multipart/form-data">
+{% csrf_token %} <!--güvenli olabilmesi için bu kullanılmalı-->
+{{form.media}}
+{{form|crispy}}
+    <br>
+    <button type="submit" class="btn btn-danger">Makale Güncelle</button>
+</form>
+</div>
+</div>
+{% endblock body %}
